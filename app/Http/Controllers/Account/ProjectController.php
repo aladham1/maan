@@ -504,7 +504,7 @@ class ProjectController extends BaseController
             $items = $items->orderBy("citizens.id", 'desc')->get();
             return Excel::download(new CitizenExport($items), "Annex Template 05-" . date('dmY') . ".xlsx");
         } else {
-            if ($request['theaction'] == 'search') {
+
                 $items = $items->orderBy("first_name")->paginate(5);
                 $items->appends(
                     [
@@ -514,196 +514,14 @@ class ProjectController extends BaseController
                         "governorate" => $governorate,
                         "theaction" => "search"
                     ]);
-            } else {
-                $items = "";
-            }
+
             return view("account.project.citizeninproject", compact("item", "items"));
         }
 
 
     }
 
-    public function forminproject($id, Request $request)
-    {
 
-        /****************************/
-        $read = $request["read"] ?? "";
-        $evaluate = $request["evaluate"] ?? "";
-        $datee = $request["datee"] ?? "";
-        $status = $request["status"] ?? "";
-        $type = $request["type"] ?? "";
-        $sent_type = $request["sent_type"] ?? "";
-        $project_id = $request["project_id"] ?? "";
-        $project_name = $request["project_name"] ?? "";
-        $active = $request["active"] ?? "";
-        $replay_status = $request["replay_status"] ?? "";
-        $from_date = $request["from_date"] ?? "";
-        $to_date = $request["to_date"] ?? "";
-        $category_id = $request["category_id"] ?? "";
-        $formid = $request["formid"] ?? "";
-        $first_name = $request["first_name"] ?? "";
-        $id_number = $request["id_number"] ?? "";
-
-
-        $item = Project::find($id);
-        if ($item == NULL) {
-            Session::flash("msg", "e:الرجاء التاكد من الرابط المطلوب");
-            return redirect("/account/form");
-        }
-        $items = $item->forms()
-            ->whereIn('forms.project_id', Account::find(auth()->user()->account->id)->projects()->pluck('projects.id', 'projects.name'))
-            ->whereIn('category_id', Account::find(auth()->user()->account->id)->circle->category()
-                ->pluck('categories.id'))
-            ->join('projects', 'projects.id', '=', 'forms.project_id')
-            ->join('project_status', 'projects.active', '=', 'project_status.id')
-            ->join('sent_type', 'forms.sent_type', '=', 'sent_type.id')
-            ->join('form_status', 'forms.status', '=', 'form_status.id')
-            ->join('form_type', 'forms.type', '=', 'form_type.id')
-            ->join('categories', 'categories.id', '=', 'forms.category_id')
-            ->join('citizens', 'citizens.id', '=', 'forms.citizen_id')
-            ->leftjoin('form_follows', 'form_follows.form_id', '=', 'forms.id')
-            ->leftjoin('form_responses', 'form_responses.form_id', '=', 'forms.id')
-            ->leftjoin('citizen_project','citizens.id','=','citizen_project.citizen_id')
-
-            ->select('forms.id',
-                'citizens.first_name',
-                'citizens.father_name',
-                'citizens.grandfather_name',
-                'citizens.last_name',
-                'citizens.id_number',
-                'categories.name as nammes',
-                'forms.title',
-                'projects.name as zammes',
-                'project_status.name  as psammes',
-                'forms.datee',
-                'form_status.name as fsammes'
-                , 'form_type.name  as tammes',
-                'sent_type.name as semmes',
-                'forms.content',
-                'projects.name',
-                'projects.active'
-                ,'citizen_project.project_request'
-
-            )
-            ->whereRaw("true");
-
-        if ($evaluate) {
-            $items = $items->whereRaw("form_follows.evaluate = ?", [$evaluate]);
-        }
-        if ($category_id && $type == 1)
-            $items->whereRaw("(category_id = ?)"
-                , [$category_id]);
-        if ($project_id || $project_id == '0')
-            if ($project_id == '-1')
-                $items->whereRaw("(projects.id > ?)"
-                    , ["1"]);
-            else
-                $items->whereRaw("(projects.id = ?)"
-                    , ["$project_id"]);
-
-        if ($project_name)
-            $items = $items->whereRaw("projects.name = ?", [$project_name]);
-
-        if ($active)
-            $items = $items->whereRaw("projects.active = ?", [$active]);
-
-
-        if ($replay_status)
-            $items = $items->whereRaw("form_follows.solve = ?", [$replay_status]);
-
-        if ($from_date && $to_date) {
-            $items = $items->whereRaw("forms.datee >= ? and forms.datee <= ?", [$from_date, $to_date]);
-        }
-        if ($datee)
-            $items = $items->whereRaw("forms.datee = ?", [$datee]);
-        if ($status){
-//            $items = $items->whereRaw("status = ?", [$status]);
-            $follow = Form_follow::pluck('form_id');
-            $response = Form_response::where('response','!=','')->pluck('form_id');
-            $intersect = $follow->intersect($response);
-            if(request('status') != 1){
-                $items = $items->whereIn('forms.id' , $intersect);
-            }else{
-                $items = $items->whereNotIn('forms.id' , $intersect);
-            }
-
-        }
-
-        if ($type)
-            $items = $items->whereRaw("type = ?", [$type]);
-        if ($sent_type)
-            $items = $items->whereRaw("sent_type = ?", [$sent_type]);
-
-        if ($read) {
-            if ($read == 1)
-                $items = $items->whereRaw(" `read` = ?", [$read]);
-            else
-                $items = $items->whereNull("read");
-        }
-
-        if ($formid) {
-            $items = $items->whereRaw("forms.id = ?", [$formid]);
-        }
-        if ($category_id) {
-            $items = $items->whereRaw("forms.category_id = ?", [$category_id]);
-        }
-        if ($first_name) {
-            $items = $items->whereRaw("citizens.first_name = ?", [$first_name]);
-        }
-
-        if ($id_number) {
-            $items = $items->whereRaw("citizens.id_number = ?", [$id_number]);
-        }
-
-        $items = $items->orderBy("forms.id", 'desc')->get();
-        $projects = Account::find(auth()->user()->account->id)->projects->all();
-        if (auth()->user()->id == 1) {
-            $categories = Category::all();
-        } else {
-            $categories = auth()->user()->account->circle->category->all();
-        }
-
-        $form_type = Form_type::all();
-        $form_status = Form_status::all();
-        $sent_typee = Sent_type::all();
-        $project_status = Project_status::all();
-        if ($request['theaction'] == 'excel') {
-            $items = Form::with('form_follow', 'form_response')->whereIn('id', $items->pluck('id'))->get();
-            return Excel::download(new FormsExport($items), "Annex Template 01-" . date('dmY') . ".xlsx");
-
-        } elseif ($request['theaction'] == 'print') {
-
-            $items = Form::find($items->pluck('id'));
-            $pdf = PDF::loadView('account.form.printall', compact('items', "projects"));
-            return $pdf->stream("document_$item->name.pdf");
-        } else {
-            if ($request['theaction'] == 'search') {
-                $items = Form::whereIn('id', $items->pluck('id'))->paginate(5);
-                $items->appends([
-                    'id' => request('id'),
-                    'id_number' => request('id_number'),
-                    'first_name' => request('first_name'),
-                    'category_name' => request('category_name'),
-                    'sent_type' => request('sent_type'),
-                    'type' => request('type'),
-                    'category_id' => request('category_id'),
-                    'status' => request('status'),
-                    'project_name' => request('project_name'),
-                    'replay_status' => request('replay_status'),
-                    'active' => request('active'),
-                    'evaluate' => request('evaluate'),
-                    'datee' => request('datee'),
-                    'from_date' => request('from_date'),
-                    'to_date' => request('to_date'),
-                    'theaction' => 'search'
-                ]);
-            } else {
-                $items = "";
-            }
-            return view("account.project.forminproject", compact("item", "form_type", "evaluate", "project_status", "form_status", "sent_typee", "items", "projects", "type", "categories"));
-
-        }
-    }
 
     public function accountinproject($id, Request $request)
     {

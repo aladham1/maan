@@ -144,7 +144,7 @@
                                                         <td colspan="5"><?php echo e($forms->first()->citizen->street); ?></td>
 
                                                         <td colspan="2">فئة مقدم الشكوى:</td>
-                                                        <td colspan="2"></td>
+                                                        <td colspan="2"><?php echo e($forms->first()->project->id == 1 ? 'غير مستفيد' : ' مستفيد'); ?></td>
 
                                                     </tr>
 
@@ -199,7 +199,7 @@
                                                                 الاقتراح/الشكوى
                                                             </th>
                                                             <th style="text-align: center;color:#333;">حالة الرد</th>
-                                                            <th style="text-align: center;color:#333;">المرفقات</th>
+
                                                             <th style="text-align: center;color:#333;">معاينة</th>
                                                         </tr>
                                                         </thead>
@@ -216,26 +216,6 @@
                                                                     <td style="text-align: center;"> <?php if($form->category): ?>  <?php echo e($form->category->name); ?> <?php endif; ?> </td>
                                                                     <td style="text-align: center;"><?php echo e($form->form_status->name); ?>
 
-                                                                    </td>
-                                                                    <td><?php
-                                                                        $form_files = \App\Form_file::where('form_id', '=', $form->id)->get();
-
-                                                                        if(!$form_files->isEmpty()){
-                                                                        ?>
-                                                                        <a class="btn btn-xs btn-primary"
-                                                                           data-toggle="modal" id="smallButton"
-                                                                           data-target="#smallModal"
-                                                                           data-attr="<?php echo e(route('citizenshowfiles', $form->id)); ?>"
-                                                                           title="اضغظ هنا">
-                                                                            عرض
-                                                                        </a>
-                                                                        <?php }else{?>
-                                                                        <a class="btn btn-xs btn-primary"
-                                                                           title="لايوجد مرفقات لعرضها"
-                                                                           disabled="disabled">
-                                                                            عرض
-                                                                        </a>
-                                                                        <?php } ?>
                                                                     </td>
                                                                     <td style="text-align: center;">
                                                                         <a target="_blank" title="عرض"

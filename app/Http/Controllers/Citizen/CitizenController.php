@@ -213,8 +213,12 @@ class CitizenController extends Controller
             $itemco = \App\Company::all()->first();
             $citzen_id = $_GET['id_number'];
             //$citzen_id = $id_number;
-            return view("citizen.create", compact('itemco', 'type', 'hide_data', 'private_contact_option','private_email','private_mobile', 'id_number', 'projects', 'form_type'
-                , "form_status", "sent_typee", 'type', 'category', 'citzen_id', 'project_id', 'project_code', 'citizen_name', 'project_name'));
+            return view("citizen.create",
+                compact('itemco', 'type', 'hide_data',
+                    'private_contact_option','private_email','private_mobile',
+                    'id_number', 'projects', 'form_type'
+                , "form_status", "sent_typee", 'type', 'category', 'citzen_id',
+                    'project_id', 'project_code', 'citizen_name', 'project_name'));
         } else {
             $testeroor = $this->validate($request, ['project_id' => 'required']);
             $citizen = Citizen::find($citizen_id);

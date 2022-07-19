@@ -619,7 +619,8 @@ class FormController extends Controller
 
         }
 
-        return view("citizen.confirmsend", compact('itemco', 'form', 'form_type', 'type', 'item'));
+        return view("citizen.confirmsend",
+            compact('itemco', 'form', 'form_type', 'type', 'item'));
     }
 
 

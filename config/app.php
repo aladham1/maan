@@ -148,7 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         //Barryvdh\DomPDF\ServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+//        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
         /*
          * Package Service Providers...

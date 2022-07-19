@@ -93,6 +93,7 @@ class AccountController extends BaseController
 
     public function store(AccountRequest $request)
     {
+
 //        $validate = $this->validate($request, $request->rules());
         $validated = $request->validated();
 
@@ -111,6 +112,7 @@ class AccountController extends BaseController
             Session::flash("msg", "تمت عملية الاضافة بنجاح");
             return redirect("/account/account/select-project/$theid");
         }
+
     }
 
     public function edit($id)

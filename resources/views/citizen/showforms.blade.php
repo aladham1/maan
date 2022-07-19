@@ -146,7 +146,7 @@
                                                         <td colspan="5">{{$forms->first()->citizen->street}}</td>
 
                                                         <td colspan="2">فئة مقدم الشكوى:</td>
-                                                        <td colspan="2"></td>
+                                                        <td colspan="2">{{$forms->first()->project->id == 1 ? 'غير مستفيد' : ' مستفيد'}}</td>
 
                                                     </tr>
 

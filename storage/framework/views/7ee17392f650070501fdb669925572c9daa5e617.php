@@ -309,7 +309,9 @@
                                             ?>
 
                                             <input name="type_name"
-                                                   value="<?php if(in_array($project_id,$project_arr)): ?><?php echo e('مستفيد'); ?><?php else: ?><?php echo e('غير مستفيد'); ?><?php endif; ?>"
+                                                   value="<?php if(in_array($project_id,$project_arr)): ?><?php echo e('مستفيد'); ?>
+
+                                                   <?php else: ?><?php echo e('غير مستفيد'); ?><?php endif; ?>"
                                                    type="text" readonly class="form-control">
                                         </div>
 

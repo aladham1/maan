@@ -103,7 +103,11 @@
                 <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">{{'_'}}</td>
                 <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">{{'_'}}</td>
             @else
-            <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">@if($item->first_name){{ $item->first_name .' '.$item->father_name .' '.$item->grandfather_name.' '.$item->last_name }}@else {{ $item->citizen->first_name .' '.$item->citizen->father_name .' '.$item->citizen->grandfather_name.' '.$item->citizen->last_name }} @endif</td>
+            <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">
+                @if($item->first_name){{ $item->first_name .' '.$item->father_name .' '.$item->grandfather_name.'
+ '.$item->last_name }}@else
+                    {{ $item->citizen->first_name .' '.$item->citizen->father_name .'
+ '.$item->citizen->grandfather_name.' '.$item->citizen->last_name }} @endif</td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">{{ $item->id_number ? $item->id_number : $item->citizen->id_number }}</td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">{{ $item->governorate ? $item->governorate :  $item->citizen->governorate }}</td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">{{ $item->city ? $item->city :  $item->citizen->city }}</td>

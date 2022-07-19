@@ -79,12 +79,12 @@
                     ستقدمها بكل جدية وبسرية تامة</h4>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-     
+
             </div>
             @else
                <div class="col-md-12">
@@ -99,15 +99,15 @@
                 </h4>
                 </div>
                         </div>
-                      
+
                     </div>
                 </div>
             </div>
             </div>
             </div>
-    
+
         @endif
- 
+
 <div class="col-md-12 col-12">
 	    <div class="inner-card inner-card-user">
 	<div class="inner-card-header">
@@ -223,7 +223,7 @@
  </div>
                 </div>
                  </div>
-               
+
 
                  <!--<h4 class="inner-h4">
                 @if($type == 1)
@@ -329,7 +329,7 @@
                     ثانياً: تفاصيل الاقتراح:
                 @else
                 @endif
-            
+
 </div>
 	</div>
 	<div class="inner-card-body">
@@ -368,7 +368,7 @@
                                         {!! $errors->first('datee', '<p class="help-block" style="color:red;">:message</p>') !!}
                                     </div>
                                     @if($type==1)
-                       
+
                                     <div class="col-md-4">
                                         <label for="category_id"  class="col-form-label">فئة الشكوى</label>
                                         <select id="category" class="form-control {{($errors->first('category_id') ? " form-error" : "")}}" id="sel1" name="category_id">
@@ -400,7 +400,7 @@
 
 
                             @elseif($type == 2)
-                     
+
                                     <div class="col-md-4">
                                             <label for="category_id" class="col-form-label">فئة الاقتراح</label>
                                             <select id="category"
@@ -602,7 +602,7 @@
             </div>
         </div>
 
-    
+
  </section>
 <!--****************************************************** start footer **************************************************************-->
 @endsection

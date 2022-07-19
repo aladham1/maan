@@ -51,7 +51,7 @@ class AccountRequest extends FormRequest
                 'mobile' => 'required|digits:10',
                 'email' => ['email','required',\Illuminate\Validation\Rule::unique('accounts')->ignore($id)],
                 'circle_id' => 'required',
-                'private' => 'required',
+//                'private' => 'required',
                 'id_number' => [new IdNumber(),\Illuminate\Validation\Rule::unique('accounts')->ignore($id)],
             ];
 
@@ -62,7 +62,7 @@ class AccountRequest extends FormRequest
                 'email' => ['email','required',\Illuminate\Validation\Rule::unique('accounts')->ignore($id)],
                 'password' => 'required|min:6',
                 'circle_id' => 'required',
-                'private' => 'required',
+//                'private' => 'required',
                 'id_number' => [new IdNumber(),\Illuminate\Validation\Rule::unique('accounts')->ignore($id)],
             ];
         }
@@ -82,7 +82,7 @@ class AccountRequest extends FormRequest
             'mobile.digits' => 'رقم المحمول خطأ، يرجى إدخال رقم محمول صحيح وفعال.',
             'id_number.required' => 'رقم الهوية خطأ، يرجى إدخال رقم هوية صحيح.',
             'circle_id.required' => 'يرجى اختيار المستوى الإداري.',
-            'private.required' => 'يرجى تحديد مدى إمكانية تعامل المستخدم مع الاقتراحات والشكاوى التي يرغب مقدمها بإخفاء معلوماته الأساسية خلال معالجتها.',
+//            'private.required' => 'يرجى تحديد مدى إمكانية تعامل المستخدم مع الاقتراحات والشكاوى التي يرغب مقدمها بإخفاء معلوماته الأساسية خلال معالجتها.',
             'id_number.unique' => 'رقم الهوية مدرج مسبقاً في النظام.',
             'user_name.unique' => 'اسم المستخدم موجود مسبقاً , يرجى إدخال اسم مستخدم مختلف.',
         ];

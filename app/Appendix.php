@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class appendix extends Model
+class Appendix extends Model
 {
     protected $table = "appendixes";
 

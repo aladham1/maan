@@ -6,7 +6,7 @@
 <table style="padding: 10px;border: 1px solid black;border-collapse: collapse;" border="1">
     <thead>
     <tr>
-        <td colspan="45" style="text-align: center;vertical-align:center;background-color: #cfe3f8; height: 30px;padding: 10px;border: 1px solid black;border-collapse: collapse;">
+        <td colspan="46" style="text-align: center;vertical-align:center;background-color: #cfe3f8; height: 30px;padding: 10px;border: 1px solid black;border-collapse: collapse;">
             نظام مركز معاً لإدارة الاقتراحات والشكاوى- ملحق رقم (1): بيانات الاقتراحات والشكاوى المسجلة على النظام.
         </td>
     </tr>
@@ -94,7 +94,20 @@
         <tr>
             
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->form_no); ?></td>
-            <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php if($item->first_name): ?><?php echo e($item->first_name .' '.$item->father_name .' '.$item->grandfather_name.' '.$item->last_name); ?><?php else: ?> <?php echo e($item->citizen->first_name .' '.$item->citizen->father_name .' '.$item->citizen->grandfather_name.' '.$item->citizen->last_name); ?> <?php endif; ?></td>
+            <?php if($item->hide_data == 2): ?>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+                <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e('_'); ?></td>
+            <?php else: ?>
+            <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;">
+                <?php if($item->first_name): ?><?php echo e($item->first_name .' '.$item->father_name .' '.$item->grandfather_name.'
+ '.$item->last_name); ?><?php else: ?>
+                    <?php echo e($item->citizen->first_name .' '.$item->citizen->father_name .'
+ '.$item->citizen->grandfather_name.' '.$item->citizen->last_name); ?> <?php endif; ?></td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->id_number ? $item->id_number : $item->citizen->id_number); ?></td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->governorate ? $item->governorate :  $item->citizen->governorate); ?></td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->city ? $item->city :  $item->citizen->city); ?></td>
@@ -113,6 +126,7 @@
 
                 <?php endif; ?>
             </td>
+            <?php endif; ?>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->project_id == 1 ? 'غير مستفيد' : ' مستفيد'); ?></td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->binfit); ?></td>
             <td style="padding: 10px;border: 1px solid black;border-collapse: collapse;"><?php echo e($item->project_end_date <= now() ?  'منتهي' : 'مستمر'); ?></td>

@@ -1242,11 +1242,13 @@ class FormController extends BaseController
                         'oldcategories.id as old_category_id'
                     )->get();
 
-                $items = Form::with('form_follow', 'form_response')->whereIn('id', $items_empty->pluck('id'))->paginate(5);
+                $items = Form::with('form_follow', 'form_response')
+                    ->whereIn('id', $items_empty->pluck('id'))->paginate(5);
 
             }
 
-            return view("account.form.index", compact("items", 'form_type', "form_status", "sent_typee", "projects", "type", "categories", "project_status"));
+            return view("account.form.index",
+                compact("items", 'form_type', "form_status", "sent_typee", "projects", "type", "categories", "project_status"));
         }
     }
 

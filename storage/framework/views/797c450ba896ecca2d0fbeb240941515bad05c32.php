@@ -111,27 +111,26 @@
                                 </div>
 
                             </div>
-                            <div class="form-group row">
-                                <br>
-                                <div class="col-sm-4">
-                                    <label for="private" class="col-form-label">إمكانية تعامل هذا المستخدم مع
-                                        الاقتراحات والشكاوى ذات الخصوصية لرغبة مقدمها بإخفاء معلوماته الأساسية خلال
-                                        معالجتها</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <select
-                                        class="form-control <?php echo e(($errors->first('private') ? " form-error" : "")); ?>"
-                                        name="private">
-                                        <option value="">اختر</option>
-                                        <option value="1" <?php echo e(old('private') == 1 ?"selected":""); ?>>نعم</option>
-                                        <option value="0" <?php echo e(old('private') == 0 ?"selected":""); ?>>لا</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-12">
-                                    <?php echo $errors->first('private', '<p class="help-block" style="color:red;">:message</p>'); ?>
 
-                                </div>
-                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                             <div class="form-group row" align="left">
                                 <div class="col-sm-12">
